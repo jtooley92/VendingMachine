@@ -13,6 +13,7 @@ import com.sg.vendingmachine.service.VendingMachineService;
 import com.sg.vendingmachine.ui.UserIO;
 import com.sg.vendingmachine.ui.UserIOConsoleImpl;
 import com.sg.vendingmachine.ui.VendingMachineView;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -33,25 +34,25 @@ public class VendingMachineController {
     public void run() throws VendingMachineDAOException {
         boolean keepGoing = true;
         int menuSelection = 0;
-             listSnacks();
-             userSnack();
-             userCash();
-             exitMessage();
+        listSnacks();
+        getCalculations();
+        exitMessage();
     }
-
 
     private void listSnacks() throws VendingMachineDAOException {
         view.displayAllSnacksBanner();
         List<Snack> snackList = service.getAllSnacks();
         view.displaySnackList(snackList);
     }
-    
-    private void userSnack() throws VendingMachineDAOException {
-        view.getUserSnack();
+
+    private String userSnack() throws VendingMachineDAOException {
+
+        return view.getUserSnack();
     }
-    
-    private void userCash() throws VendingMachineDAOException {
-        view.getUserCash();
+
+    private String userCash() throws VendingMachineDAOException {
+
+        return view.getUserCash();
     }
 
     private void unknownCommand() {
@@ -61,4 +62,17 @@ public class VendingMachineController {
     private void exitMessage() {
         view.displayExitBanner();
     }
+
+    private void getCalculations() throws VendingMachineDAOException {
+        String snackName = userSnack();
+        String cash = userCash();
+       Snack snack = service.getSnack(snackName);
+       String price = snack.getPrice().toString();
+       BigDecimal changeCalculation = service.changeCalculion(cash, price);
+        System.out.println(changeCalculation);
+       List coinCalculation = service.coinCalculation(changeCalculation);
+       view.coinChange(coinCalculation);
+       service.removeSnack(snack);
+    }
+    
 }

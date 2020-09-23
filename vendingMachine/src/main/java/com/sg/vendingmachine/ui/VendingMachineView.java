@@ -7,6 +7,7 @@ package com.sg.vendingmachine.ui;
 
 import com.sg.vendingmachine.dao.VendingMachineDAO;
 import com.sg.vendingmachine.dto.Snack;
+import com.sg.vendingmachine.service.VendingMachineService;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class VendingMachineView {
     }
     private UserIO io;
     private VendingMachineView view;
-     private VendingMachineDAO dao;
+     private VendingMachineService service;
     
     public void displaySnackList(List<Snack> snackList) {
         String snackInfo = "";
@@ -44,6 +45,10 @@ public class VendingMachineView {
 
     public String getUserCash() {
         return io.readString("Please enter your cash: ");
+    }
+    
+    public void coinChange(List<Integer> coinCalculation) {
+        io.print("Quarters: " + coinCalculation.get(0) + " Dimes: " + coinCalculation.get(1) + " Nickels: " + coinCalculation.get(2) + " Pennies: " + coinCalculation.get(3));
     }
 
     public void displayAllSnacksBanner() {

@@ -6,5 +6,6 @@ com\sg\vendingmachine\VendingMachineApp.class
 com\sg\vendingmachine\controller\VendingMachineController.class
 com\sg\vendingmachine\ui\UserIOConsoleImpl.class
 com\sg\vendingmachine\ui\UserIO.class
+com\sg\vendingmachine\service\VendingMachineServiceImpl.class
 com\sg\vendingmachine\ui\VendingMachineView.class
 com\sg\vendingmachine\dao\VendingMachineDAOException.class

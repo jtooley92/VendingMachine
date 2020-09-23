@@ -16,5 +16,5 @@ import java.util.List;
 public interface VendingMachineDAO {
     List<Snack> getAllSnacks() throws VendingMachineDAOException;
     Snack getSnack(String name) throws VendingMachineDAOException;
-    Snack removeSnack(String name, Snack snack) throws VendingMachineDAOException;
+    Snack removeSnack(Snack snack) throws VendingMachineDAOException;
 }

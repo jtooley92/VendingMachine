@@ -44,8 +44,11 @@ public class VendingMachineDAOFileImpl implements VendingMachineDAO{
     }
 
     @Override
-    public Snack removeSnack(String name, Snack snack) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Snack removeSnack(Snack snack) throws VendingMachineDAOException {
+        snack.setInventory(snack.getInventory() - 1);
+        writeSnack();
+        
+        return snack;
     }
     
     
