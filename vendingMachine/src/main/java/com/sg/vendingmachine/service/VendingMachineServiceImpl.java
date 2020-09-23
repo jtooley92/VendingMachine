@@ -5,6 +5,8 @@
  */
 package com.sg.vendingmachine.service;
 
+import com.sg.vendingmachine.dao.InsufficientFundsException;
+import com.sg.vendingmachine.dao.NoItemInventoryException;
 import com.sg.vendingmachine.dao.VendingMachineDAO;
 import com.sg.vendingmachine.dao.VendingMachineDAOException;
 import com.sg.vendingmachine.dao.VendingMachineDAOFileImpl;
@@ -34,13 +36,21 @@ public class VendingMachineServiceImpl implements VendingMachineService {
     }
 
     @Override
-    public Snack removeSnack(Snack snack) throws VendingMachineDAOException {
+    public Snack removeSnack(Snack snack) throws VendingMachineDAOException, NoItemInventoryException {
         
-        return dao.removeSnack(snack);
+        Snack removedSnack = dao.removeSnack(snack);
+        if (removedSnack.getInventory() < 0) {
+            
+            removedSnack.setInventory(1);
+            dao.removeSnack(snack);
+            throw new NoItemInventoryException("Snack Not Available");
+        } 
+         
+        return removedSnack;
     }
 
     @Override
-    public BigDecimal changeCalculion(String cash, String price) throws VendingMachineDAOException {
+    public BigDecimal changeCalculion(String cash, String price) throws VendingMachineDAOException, InsufficientFundsException {
         BigDecimal money = new BigDecimal(cash);
         BigDecimal snackPrice = new BigDecimal(price);
         if (money.compareTo(snackPrice) == 1) {
@@ -51,7 +61,7 @@ public class VendingMachineServiceImpl implements VendingMachineService {
             return BigDecimal.ZERO;
         } else if (money.compareTo(snackPrice) == -1) {
 
-            return money.subtract(snackPrice);
+            throw new InsufficientFundsException("Insufficient Funds Please enter correct amount.  Entered " + money.toString());
         }
 
         return money;

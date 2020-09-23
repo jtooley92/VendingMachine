@@ -9,12 +9,12 @@ package com.sg.vendingmachine.dao;
  *
  * @author Jtooleyful
  */
-public class NoItemException extends Exception{
-    public NoItemException(String message) {
+public class NoItemInventoryException extends Exception{
+    public NoItemInventoryException(String message) {
         super(message);
     }
 
-    public NoItemException(String message, Throwable cause) {
+    public NoItemInventoryException(String message, Throwable cause) {
         super(message, cause);
     }
     

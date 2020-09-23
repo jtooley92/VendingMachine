@@ -5,6 +5,8 @@
  */
 package com.sg.vendingmachine.controller;
 
+import com.sg.vendingmachine.dao.InsufficientFundsException;
+import com.sg.vendingmachine.dao.NoItemInventoryException;
 import com.sg.vendingmachine.dao.VendingMachineDAO;
 import com.sg.vendingmachine.dao.VendingMachineDAOException;
 import com.sg.vendingmachine.dao.VendingMachineDAOFileImpl;
@@ -29,14 +31,17 @@ public class VendingMachineController {
 
     private VendingMachineService service;
     private VendingMachineView view;
-    private UserIO io = new UserIOConsoleImpl();
 
     public void run() throws VendingMachineDAOException {
         boolean keepGoing = true;
         int menuSelection = 0;
+        try{
         listSnacks();
         getCalculations();
         exitMessage();
+    } catch (NoItemInventoryException | InsufficientFundsException e){
+            System.out.println(e.getMessage());
+    }
     }
 
     private void listSnacks() throws VendingMachineDAOException {
@@ -63,7 +68,7 @@ public class VendingMachineController {
         view.displayExitBanner();
     }
 
-    private void getCalculations() throws VendingMachineDAOException {
+    private void getCalculations() throws VendingMachineDAOException, NoItemInventoryException, InsufficientFundsException {
         String snackName = userSnack();
         String cash = userCash();
        Snack snack = service.getSnack(snackName);
