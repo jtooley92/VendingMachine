@@ -7,6 +7,7 @@ package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Snack;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,23 +25,27 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Jtooleyful
  */
 public class VendingMachineDAOFileImplIT {
+
     VendingMachineDAO newTestDAO;
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         String newTestFile = "VendingMachineUnitTest.txt";
-        new FileReader(newTestFile);
+        FileWriter fw = new FileWriter(newTestFile);
+        fw.append("twizzlers::2.00::6");
+        fw.flush();
+        fw.close();
         newTestDAO = new VendingMachineDAOFileImpl(newTestFile);
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -48,22 +53,33 @@ public class VendingMachineDAOFileImplIT {
     @Test
     public void testGetSnack() throws Exception {
         Snack newSnack = new Snack("twizzlers", new BigDecimal("2.00"), 6);
-        
+
         Snack gotSnack = newTestDAO.getSnack("twizzlers");
-        
+
         assertEquals(gotSnack, newSnack, "Expected to retrieve snack named");
-        
+
     }
-    
+
     @Test
     public void testGetAllSnack() throws Exception {
-       Map<String, Snack> snack = new HashMap<>();
-       List<Snack> newsnacksList = new ArrayList(snack.values());
-        
+
         List<Snack> snacksList = newTestDAO.getAllSnacks();
-        
-        assertEquals(snacksList, newsnacksList, "Expected to retrieve snack list from file");
-        
-        
+        Snack newSnack = new Snack("twizzlers", new BigDecimal("2.00"), 6);
+
+        assertEquals(snacksList.size(), 1, "Expected list to contain 1 item");
+        assertEquals(snacksList.contains(newSnack), true, "Expected list to contain snack");
+
+    }
+
+    @Test
+    public void testRemoveSnack() throws Exception {
+        Snack snaack = new Snack("twizzlers", new BigDecimal("2.00"), 6);
+        Snack removedSnack = newTestDAO.removeSnack(snaack);
+
+        int removedSnackInventory = removedSnack.getInventory();
+        int newSnack = (newTestDAO.getSnack("twizzlers").getInventory() -1);
+
+        assertEquals(removedSnackInventory, newSnack, "Expected inventory to decrease by 1");
+
     }
 }
