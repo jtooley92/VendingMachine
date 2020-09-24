@@ -7,6 +7,7 @@ package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.InsufficientFundsException;
 import com.sg.vendingmachine.dao.NoItemInventoryException;
+import com.sg.vendingmachine.dao.VendingMachineAuditDAO;
 import com.sg.vendingmachine.dao.VendingMachineDAO;
 import com.sg.vendingmachine.dao.VendingMachineDAOException;
 import com.sg.vendingmachine.dao.VendingMachineDAOFileImpl;
@@ -20,8 +21,13 @@ import java.util.List;
  * @author Jtooleyful
  */
 public class VendingMachineServiceImpl implements VendingMachineService {
+    public VendingMachineServiceImpl(VendingMachineDAO dao, VendingMachineAuditDAO auditDAO){
+        this.dao = dao;
+        this.auditDAO = auditDAO;
+    }
 
-    VendingMachineDAO dao = new VendingMachineDAOFileImpl();
+    private VendingMachineDAO dao;
+    private VendingMachineAuditDAO auditDAO;
 
     @Override
     public List<Snack> getAllSnacks() throws VendingMachineDAOException {
@@ -46,6 +52,7 @@ public class VendingMachineServiceImpl implements VendingMachineService {
             throw new NoItemInventoryException("Snack Not Available");
         } 
          
+        auditDAO.writeAuditEntry("Snack " + removedSnack.getName() + " Bought");
         return removedSnack;
     }
 

@@ -6,6 +6,8 @@
 package com.sg.vendingmachine;
 
 import com.sg.vendingmachine.controller.VendingMachineController;
+import com.sg.vendingmachine.dao.VendingMachineAuditDAO;
+import com.sg.vendingmachine.dao.VendingMachineAuditDAOFileImpl;
 import com.sg.vendingmachine.dao.VendingMachineDAO;
 import com.sg.vendingmachine.dao.VendingMachineDAOException;
 import com.sg.vendingmachine.dao.VendingMachineDAOFileImpl;
@@ -23,7 +25,9 @@ public class VendingMachineApp {
     public static void main(String[] args) throws VendingMachineDAOException {
         UserIO myIo = new UserIOConsoleImpl();
         VendingMachineView myView = new VendingMachineView(myIo);
-        VendingMachineService myService = new VendingMachineServiceImpl();
+        VendingMachineDAO myDAO = new VendingMachineDAOFileImpl();
+        VendingMachineAuditDAO myAuditDAO = new VendingMachineAuditDAOFileImpl();
+        VendingMachineService myService = new VendingMachineServiceImpl(myDAO, myAuditDAO);
         VendingMachineController controller = new VendingMachineController(myView, myService);
         controller.run();
     }
