@@ -16,6 +16,7 @@ import com.sg.vendingmachine.service.VendingMachineServiceImpl;
 import com.sg.vendingmachine.ui.UserIO;
 import com.sg.vendingmachine.ui.UserIOConsoleImpl;
 import com.sg.vendingmachine.ui.VendingMachineView;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  *
@@ -23,12 +24,19 @@ import com.sg.vendingmachine.ui.VendingMachineView;
  */
 public class VendingMachineApp {
     public static void main(String[] args) throws VendingMachineDAOException {
-        UserIO myIo = new UserIOConsoleImpl();
-        VendingMachineView myView = new VendingMachineView(myIo);
-        VendingMachineDAO myDAO = new VendingMachineDAOFileImpl();
-        VendingMachineAuditDAO myAuditDAO = new VendingMachineAuditDAOFileImpl();
-        VendingMachineService myService = new VendingMachineServiceImpl(myDAO, myAuditDAO);
-        VendingMachineController controller = new VendingMachineController(myView, myService);
+//        UserIO myIo = new UserIOConsoleImpl();
+//        VendingMachineView myView = new VendingMachineView(myIo);
+//        VendingMachineDAO myDAO = new VendingMachineDAOFileImpl();
+//        VendingMachineAuditDAO myAuditDAO = new VendingMachineAuditDAOFileImpl();
+//        VendingMachineService myService = new VendingMachineServiceImpl(myDAO, myAuditDAO);
+//        VendingMachineController controller = new VendingMachineController(myView, myService);
+//        controller.run();
+
+AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
+        appContext.scan("com.sg.vendingmachine");
+        appContext.refresh();
+        
+        VendingMachineController controller = appContext.getBean("vendingMachineController", VendingMachineController.class);
         controller.run();
     }
 }

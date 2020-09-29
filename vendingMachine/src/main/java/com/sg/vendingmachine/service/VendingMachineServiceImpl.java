@@ -15,12 +15,16 @@ import com.sg.vendingmachine.dto.Snack;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Jtooleyful
  */
+@Component
 public class VendingMachineServiceImpl implements VendingMachineService {
+    @Autowired
     public VendingMachineServiceImpl(VendingMachineDAO dao, VendingMachineAuditDAO auditDAO){
         this.dao = dao;
         this.auditDAO = auditDAO;

@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.sg.vendingmachine.dao.VendingMachineDAOFileImplIT
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 sec - in com.sg.vendingmachine.dao.VendingMachineDAOFileImplIT
+Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.022 sec <<< FAILURE! - in com.sg.vendingmachine.dao.VendingMachineDAOFileImplIT
+testRemoveSnack  Time elapsed: 0.006 sec  <<< ERROR!
+java.lang.NullPointerException
+	at com.sg.vendingmachine.dao.VendingMachineDAOFileImplIT.testRemoveSnack(VendingMachineDAOFileImplIT.java:80)
+

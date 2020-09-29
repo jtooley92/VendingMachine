@@ -1,10 +1,12 @@
 com\sg\vendingmachine\dao\VendingMachineDAOFileImpl.class
+com\sg\vendingmachine\dao\VendingMachineDAOMock.class
 com\sg\vendingmachine\dao\VendingMachineDAO.class
 com\sg\vendingmachine\dao\NoItemInventoryException.class
 com\sg\vendingmachine\service\VendingMachineService.class
 com\sg\vendingmachine\ui\UserIOConsoleImpl.class
 com\sg\vendingmachine\ui\UserIO.class
 com\sg\vendingmachine\ui\VendingMachineView.class
+com\sg\vendingmachine\dao\VendingMachineAuditDAOMock.class
 com\sg\vendingmachine\dao\VendingMachineDAOException.class
 com\sg\vendingmachine\dto\Snack.class
 com\sg\vendingmachine\dao\VendingMachineAuditDAO.class

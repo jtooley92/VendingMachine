@@ -9,13 +9,16 @@ import com.sg.vendingmachine.dao.VendingMachineDAO;
 import com.sg.vendingmachine.dto.Snack;
 import com.sg.vendingmachine.service.VendingMachineService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Jtooleyful
  */
+@Component
 public class VendingMachineView {
-    
+    @Autowired
     public VendingMachineView(UserIO io){
         this.io = io;
     }
@@ -48,7 +51,7 @@ public class VendingMachineView {
     }
     
     public void coinChange(List<Integer> coinCalculation) {
-        io.print("Quarters: " + coinCalculation.get(0) + " Dimes: " + coinCalculation.get(1) + " Nickels: " + coinCalculation.get(2) + " Pennies: " + coinCalculation.get(3));
+        io.print("Quarters:" + coinCalculation.get(0) + " Dimes:" + coinCalculation.get(1) + " Nickels:" + coinCalculation.get(2) + " Pennies:" + coinCalculation.get(3));
     }
 
     public void displayAllSnacksBanner() {

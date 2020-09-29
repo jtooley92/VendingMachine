@@ -1,2 +1,8 @@
 2020-09-23T16:45:53.401102300 : Snack twizzlers Removed
 2020-09-23T20:36:14.430021900 : Snack kitkat Bought
+2020-09-26T11:34:07.655258500 : Snack gum Bought
+2020-09-26T11:35:19.586420100 : Snack gum Bought
+2020-09-26T11:36:09.875379 : Snack gum Bought
+2020-09-26T11:37:29.651789400 : Snack gum Bought
+2020-09-26T11:37:51.332512600 : Snack twizzlers Bought
+2020-09-26T19:59:09.329473700 : Snack gum Bought
